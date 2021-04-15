@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>cl.cesarcastillo.camel</groupId>
+    <artifactId>camel-specialist</artifactId>
+    <version>1.0.0</version>
+
+    <module>capitulo1</module>
+    <module>capitulo2</module>
+    <module>capitulo3</module>
+    <module>capitulo4</module>
+    <module>capitulo5</module>
+    <module>capitulo6</module>
+    <module>capitulo7</module>
+    <module>capitulo8</module>
+    <module>capitulo9</module>
+    <module>capitulo10</module>    
+
+</project>
+ 
