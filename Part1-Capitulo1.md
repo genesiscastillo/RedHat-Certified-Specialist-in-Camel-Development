@@ -99,3 +99,9 @@ Where these message exchange patterns are represented by constants in the enumer
 
 A grouped exchange is essentially an exchange instance that contains a **java.util.List** of **Exchange** objects stored in the **Exchange.ROUPED_EXCHANGE** exchange property.
 
+#### Processors
+
+A processor is a node in a route that can access and modify the stream of exchanges passing through the route. Processors can take expression or predicate arguments, that modify their behavior.
+
+#### Expressions and predicates
+
