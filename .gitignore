@@ -1,2 +1,6 @@
 *.pdf
 *.pptx
+target/**
+mp4/
+pdf/
+wmv/

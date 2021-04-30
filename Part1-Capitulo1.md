@@ -52,7 +52,7 @@ cleanly to constructs in the host language API.
 
 #### **Router rule syntax**
 
-![Router1](router1.png)
+![Router1](img/router1.png)
 
 #### **Consumers and producers**
 

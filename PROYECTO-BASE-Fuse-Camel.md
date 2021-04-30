@@ -1,9 +1,8 @@
 # Building project generic for fuse camel karaf
 
-
 *build estructura del projecto generico*
 
-![ProjectDir](projectDir.png)
+![ProjectDir](img/projectDir.png)
 
 *add pom.xml template*
 
@@ -176,3 +175,32 @@ public class TestExample {
 	}
 }
 ```
+
+
+
+## Documentos Importantes
+
+**Fuse Standalone Getting Started**
+- [Installing on Apache Karaf](https://access.redhat.com/documentation/en-us/red_hat_fuse/7.0/html-single/installing_on_apache_karaf/index)
+
+**Fuse Standalone Administration**
+- [Deploying into Apache Karaf](https://access.redhat.com/documentation/en-us/red_hat_fuse/7.0/html-single/deploying_into_apache_karaf/index)
+
+**Development**
+- [Apache Camel Development Guide](https://access.redhat.com/documentation/en-us/red_hat_fuse/7.0/html-single/apache_camel_development_guide/index)
+
+- [Apache CXF Development Guide](https://access.redhat.com/documentation/en-us/red_hat_fuse/7.0/html-single/apache_cxf_development_guide/index)
+
+**Reference**
+- [Apache Karaf Console Reference](https://access.redhat.com/documentation/en-us/red_hat_fuse/7.0/html-single/apache_karaf_console_reference/index)
+
+
+## Download Red Hat Fuse 7.0 and Configuration
+
+[Red Hat Fuse 7 Is Now Available](https://developers.redhat.com/blog/2018/06/04/red-hat-fuse-7-is-now-available/)
+
+[Product Documentation for Red Hat Fuse 7.0](https://access.redhat.com/documentation/en-us/red_hat_fuse/7.0/)
+
+[Download](https://developers.redhat.com/products/fuse/download)
+
+![DEMO Instalacion Fuse 7.0](https://youtu.be/-2NF7OHPg1I)
