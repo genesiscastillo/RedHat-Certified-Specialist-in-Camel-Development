@@ -1,4 +1,43 @@
-# Building project generic for fuse camel karaf
+# BUILDING AN OSGI BUNDLE
+
+## GENERATING A BUNDLE PROJECT
+
+Generar el proyecto bundle :
+
+```bash
+set ARTIF_PROJECT_NAME_FUSE=proyecto02
+set GROUP_PROJECT_NAME_FUSE=cl.ccastillo
+set VERSI_PROJECT_NAME_FUSE=1.0.0
+set VERSI_CAMEL_KARAF_BLUEPRINT=3.9.0
+
+mvn archetype:generate -DarchetypeGroupId=org.apache.camel.archetypes -DarchetypeArtifactId=camel-archetype-blueprint -DarchetypeVersion=%VERSI_CAMEL_KARAF_BLUEPRINT% -DgroupId=%GROUP_PROJECT_NAME_FUSE% -DartifactId=%ARTIF_PROJECT_NAME_FUSE% -Dversion=%VERSI_PROJECT_NAME_FUSE%
+```
+Agregar el plugin para el Hot Deploy
+```xml
+			<plugin>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>1.7</version>
+				<executions>
+					<execution>
+						<phase>install</phase>
+						<configuration>
+							<tasks>
+								<delete
+									file="j:\devtools\fuse-karaf-7.0.0\deploy\proyecto02-1.0.0.jar" />
+								<copy file="./target/proyecto02-1.0.0.jar"
+									tofile="j:\devtools\fuse-karaf-7.0.0\deploy\proyecto02-1.0.0.jar" />
+							</tasks>
+						</configuration>
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+```
+
+---
+# Building project generic camel standalone 
 
 *build estructura del projecto generico*
 
@@ -203,4 +242,64 @@ public class TestExample {
 
 [Download](https://developers.redhat.com/products/fuse/download)
 
-![DEMO Instalacion Fuse 7.0](https://youtu.be/-2NF7OHPg1I)
+[DEMO Instalacion Fuse 7.0](https://youtu.be/-2NF7OHPg1I)
+
+## eBooks
+
+[Camel in Action,Second Edition](https://www.manning.com/books/camel-in-action-second-edition)
+
+---
+# INSTALACION Y CONFIGURACION DE FUSE 7.0
+
+[Video Instalacion](https://www.youtube.com/watch?v=-2NF7OHPg1I)
+
+[Doc masterspringboot](http://www.masterspringboot.com/various/red-hat-fuse)
+
+# APACHE KARAF CONSOLE REFERENCE
+
+[Doc](https://access.redhat.com/documentation/en-us/red_hat_fuse/7.0/html-single/apache_karaf_console_reference/index)
+
+```bash
+bundle:capabilities
+
+bundle:find-class [className]
+
+bundle:headers [ids]
+
+bundle:id [ids]
+
+bundle:info [ids]
+
+bundle:install [-s] urls
+
+bundle:list [-name] [ids]
+
+bundle:load-test --refresh
+
+bundle:refresh [ids]
+
+bundle:requirements [ids]
+
+bundle:resolve [ids]
+
+bundle:restart [ids]
+
+bundle:services [ids]
+
+bundle:start-level [ids]
+
+bundle:start [ids]
+
+bundle:status [ids]
+
+bundle:stop [ids]
+
+bundle:tree-show [ids]
+
+bundle:uninstall [ids]
+
+bundle:update [options] id [location]
+
+bundle:watch [--start --stop --list --remove ] [urls]
+
+```
