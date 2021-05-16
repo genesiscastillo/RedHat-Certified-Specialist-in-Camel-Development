@@ -121,6 +121,47 @@ public class ExampleJndi {
 
 ## working with files - part 1
 
-```java
 
+
+
+
+
+```xml
+    <route id="loadFile">
+    	<from uri="file://data/inbox"/>
+    	<log message="hola cargando el archivo ${header['CamelFileName']}"/>
+    	<log message="el texto es ${body}"/>
+    	<log message="----------------------------------------------"/>
+    	<to uri="mock:out"/>
+    </route>
+```
+
+## Using Camel’s CSV data format
+```xml
+<dependency>
+	<groupId>org.apache.camel</groupId>
+	<artifactId>camel-csv</artifactId>
+</dependency>
+```
+in java route
+```java
+from("file://rider/csvfiles")
+.unmarshal().csv()
+.split(body()).to("jms:queue:csv.record");
+```
+
+in spring xml route
+```xml
+<camelContext id="camel" xmlns="http://camel.apache.org/schema/spring">
+    <route>
+        <from uri="file://rider/csvfiles"/>
+        <unmarshal>
+            <csv/>
+        </unmarshal>
+        <split>
+            <simple>body</simple>
+            <to uri="jms:queue:csv.record"/>
+        </split>
+    </route>
+</camelContext>
 ```

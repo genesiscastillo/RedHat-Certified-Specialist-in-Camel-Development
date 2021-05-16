@@ -16,7 +16,7 @@ Red Hat Certified Specialist in Camel Development Exam
 
 # Consume and produce files
 - CSV format
-- 0XML format
+- XML format
 
 # Work with databases and the Camel JPA component
 
