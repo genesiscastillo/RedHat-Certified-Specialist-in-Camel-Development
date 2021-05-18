@@ -23,9 +23,9 @@ Agregar el plugin para el Hot Deploy
 						<configuration>
 							<tasks>
 								<delete
-									file="j:\devtools\fuse-karaf-7.0.0\deploy\proyecto02-1.0.0.jar" />
+									file="j:\devtools\fuse-karaf-7.0.0.fuse-000191-redhat-1\deploy\proyecto02-1.0.0.jar" />
 								<copy file="./target/proyecto02-1.0.0.jar"
-									tofile="j:\devtools\fuse-karaf-7.0.0\deploy\proyecto02-1.0.0.jar" />
+									tofile="j:\devtools\fuse-karaf-7.0.0.fuse-000191-redhat-1\deploy\proyecto02-1.0.0.jar" />
 							</tasks>
 						</configuration>
 						<goals>
