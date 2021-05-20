@@ -57,7 +57,7 @@ Bundle ID: 227
 karaf@root()> install -s mvn:org.ops4j.pax.jdbc/pax-jdbc-config/1.3.0
 Bundle ID: 228
 # Configurar el datasource desde fichero blueprints
-karaf@root()> install -s blueprint:file://$PQ_HOME/blueprints/pax-jdbc-mysql-mydb.xml
+karaf@root()> install -s blueprint:file://https://github.com/genesiscastillo/RedHat-Certified-Specialist-in-Camel-Development/blob/master/blueprints/pax-jdbc-mysql-mydb.xml
 # Configurar el datasource manualmente
 karaf@root()> config:edit --factory --alias mysql org.ops4j.datasource
 karaf@root()> config:property-set osgi.jdbc.driver.name mysql
@@ -74,5 +74,27 @@ JNDI Name                 | Class Name
 --------------------------+-----------------------------------------------
 osgi:service/jndi         | org.apache.karaf.jndi.internal.JndiServiceImpl
 osgi:service/jdbc/mysqlds | com.mysql.jdbc.jdbc2.optional.MysqlDataSource
+
+karaf@root()> feature:install -s eclipselink
+
+karaf@root()> feature:install -s transaction
+karaf@root()> feature:install -s hibernate
+
+## checkear
+karaf@root()> feature:info camel-jpa
+karaf@root()> feature:install camel-jpa
+karaf@root()> feature:start camel-jpa
+karaf@root()> ls PersistenceProvider
+karaf@root()> ls EntityManagerFactory
+feature:install hibernate
+feature:start hibernate
+feature:start jpa
+feature:start transaction
+feature:start hibernate-orm
+####### checkeo 2
+feature:start camel-jpa
+
+
+
 ```
 

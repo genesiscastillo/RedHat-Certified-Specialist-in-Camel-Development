@@ -12,7 +12,7 @@ set VERSI_CAMEL_KARAF_BLUEPRINT=3.9.0
 
 mvn archetype:generate -DarchetypeGroupId=org.apache.camel.archetypes -DarchetypeArtifactId=camel-archetype-blueprint -DarchetypeVersion=%VERSI_CAMEL_KARAF_BLUEPRINT% -DgroupId=%GROUP_PROJECT_NAME_FUSE% -DartifactId=%ARTIF_PROJECT_NAME_FUSE% -Dversion=%VERSI_PROJECT_NAME_FUSE%
 ```
-Agregar el plugin para el Hot Deploy
+* agregar el plugin para el Hot Deploy
 ```xml
 			<plugin>
 				<artifactId>maven-antrun-plugin</artifactId>
@@ -34,6 +34,36 @@ Agregar el plugin para el Hot Deploy
 					</execution>
 				</executions>
 			</plugin>
+```
+* eliminar los siguientes plugin
+
+    - camel-bundle-plugin
+    - maven-jar-plugin
+
+* agregar el plugin bundle
+```xml
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<version>3.3.0</version>
+				<extensions>true</extensions>
+				<configuration>
+					<instructions>
+						<Bundle-Name>${project.name}</Bundle-Name>
+						<Bundle-SymbolicName>${project.name}-osgi</Bundle-SymbolicName>
+						<Import-Package>
+							*;resolution:=optional
+						</Import-Package>
+						<DynamicImport-Package>*</DynamicImport-Package>
+						<Implementation-Title>${project.name}</Implementation-Title>
+						<Implementation-Version>${project.version}</Implementation-Version>
+					</instructions>
+				</configuration>
+			</plugin>
+```
+* cambiar el packaging a bunlde
+```xml
+<packaging>bundle</packaging>
 ```
 
 ---
@@ -67,7 +97,7 @@ Agregar el plugin para el Hot Deploy
 ```xml
 <?xml version="1.0"?>
 <settings>
-
+...
   <profiles>
     <profile>
       <id>extra-repos</id>
@@ -130,11 +160,11 @@ Agregar el plugin para el Hot Deploy
       </pluginRepositories>
     </profile>
   </profiles>
-
+....
   <activeProfiles>
     <activeProfile>extra-repos</activeProfile>
   </activeProfiles>
-
+....
 </settings>
 ```
 ---
@@ -260,6 +290,8 @@ public class TestExample {
 [Doc](https://access.redhat.com/documentation/en-us/red_hat_fuse/7.0/html-single/apache_karaf_console_reference/index)
 
 ```bash
+bundle:diag
+
 bundle:capabilities
 
 bundle:find-class [className]
