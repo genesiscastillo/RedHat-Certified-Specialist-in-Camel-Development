@@ -20,16 +20,36 @@ the transaction client API.
 In the context of the Spring Framework, Spring Boot, the **org.springframework.transaction.PlatformTransactionManager** interface exposes a transaction client API.
 
 ## Use Camel components JMS
-* Pre-Requisites - Install broker Artemis ActiveMQ 2.17.0
+### Pre-Requisites - Install RedHat Fuse 7.0.0
+
+[Donwload RedHat Fuse 7.0.0](https://developers.redhat.com/products/fuse/download)
+
+-  open two console and execute in $FUSE_HOME/bin:
+    * fuse.bat
+    * client.bat
+
+![artemis7](img/artemis7.png)
+
+### in console FUSE , execute :
 ```bash
-mkdir artemis-brokers
-cd artemis-brokers
-$ARTEMIS_HOME/bin/artemis create --user cesar --admin cesar --require-login mybroker
-$artemis-brokers/bin/artemis run
+karaf@root()> log:tail
+```     
+![artemis8](img/artemis8.png)
+
+### Pre-Requisites - Install broker Artemis ActiveMQ 2.17.0
+
+[Donwload Artemis](https://activemq.apache.org/components/artemis/)
+
+    * create new dir ´artemis-brokers´ and execute follow:
+```bash
+> mkdir artemis-brokers
+> cd artemis-brokers
+>$ARTEMIS_HOME/bin/artemis create --user cesar --admin cesar --require-login mybroker
+> artemis-brokers/bin/artemis run
 ```
 ![artemis1](img/artemis1.png)
 
-- Client libraries are required: Maven Central o Red Hat repository 
+- Client libraries are required: Maven Central o Red Hat repository (ONLY IS A INFORMATION FOR DEVELOPMENT)
 ```xml
 <!-- https://mvnrepository.com/artifact/org.apache.activemq/artemis-core-client -->
 <dependency>
@@ -45,6 +65,8 @@ $artemis-brokers/bin/artemis run
     <version>2.17.0</version>
 </dependency>
 ``` 
+### In console client execute the follows:
+
 - Client libraries can be installed as Karaf features:
 ```bash
 karaf@root()> feature:repo-add mvn:org.apache.activemq/artemis-features/2.17.0/xml/features
@@ -92,11 +114,39 @@ karaf@root()> service:list javax.jms.ConnectionFactory
 		<my.fuse.dir.home>j:/devtools/fuse-karaf-7.0.0.fuse-000191-redhat-1</my.fuse.dir.home>
 	</properties>
 ```
-- execute install maven
+### deploy to fuse (two options)
+- first option : execute install maven
 ```bash
 mvn clean install
 ```
-* Sending to a JMS endpoint
+- second options: 
+    - execute package maven
+```bash
+mvn clean package
+```
+    - install with karaf
+```bash
+karaf@root()> install -s  mvn:org.jboss.fuse.quickstarts/camel-jms/7.0.0.fuse-000191-redhat-1
+```
+
+* Confirm that it is working:
+```bash
+karaf@root()> camel:context-list
+```
+
+*  execute testing
+copy dir $PROJECT/work to $FUSE_HOME/
+
+![artemis6](img/artemis6.png)
+
+* check camel route statitics:
+```bash
+karaf@root()> camel:route-info jms-example-context file-to-jms-route
+```
+![artemis9](img/artemis9.png)
+
+---
+## Prueba de Conceptos: Sending to a JMS endpoint
 
 ![JMS1](img/jms1.png)
 
@@ -147,6 +197,5 @@ context.addComponent("jms",JmsComponent.jmsComponentAutoAcknowledge(connectionFa
             .to("mock:out");
         }
     });
-
 ```
 
