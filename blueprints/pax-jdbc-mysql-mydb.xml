@@ -7,9 +7,9 @@
         <property name="password" value="cesar"></property>
    </bean>
 
-    <service id="mysqlDS" interface="javax.sql.DataSource" ref="mysqlDatasource">
+    <service id="mysqldsfile" interface="javax.sql.DataSource" ref="mysqlDatasource">
         <service-properties>
-            <entry key="osgi.jndi.service.name" value="jdbc/mydb"/>
+            <entry key="osgi.jndi.service.name" value="jdbc/mydbfile"/>
         </service-properties>
     </service>
 </blueprint>

@@ -49,3 +49,7 @@ Red Hat Certified Specialist in Camel Development Exam
 - Catch and handle exceptions
 - Use the dead-letter queue
 
+## MUSIC
+
+[Dire Straits - Sultans Of Swing](https://www.youtube.com/watch?v=h0ffIJ7ZO4U)
+
