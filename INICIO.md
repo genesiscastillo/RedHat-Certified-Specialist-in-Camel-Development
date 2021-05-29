@@ -12,7 +12,86 @@ set VERSI_CAMEL_KARAF_BLUEPRINT=3.9.0
 
 mvn archetype:generate -DarchetypeGroupId=org.apache.camel.archetypes -DarchetypeArtifactId=camel-archetype-blueprint -DarchetypeVersion=%VERSI_CAMEL_KARAF_BLUEPRINT% -DgroupId=%GROUP_PROJECT_NAME_FUSE% -DartifactId=%ARTIF_PROJECT_NAME_FUSE% -Dversion=%VERSI_PROJECT_NAME_FUSE%
 ```
-* agregar el plugin para el Hot Deploy
+- eliminar los siguientes plugin
+
+  - camel-bundle-plugin
+  - maven-jar-plugin
+
+- agregar el plugin bundle
+
+```xml
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<version>3.3.0</version>
+				<extensions>true</extensions>
+				<configuration>
+					<instructions>
+						<Bundle-Name>${project.name}</Bundle-Name>
+						<Bundle-SymbolicName>${project.name}-osgi</Bundle-SymbolicName>
+						<Import-Package>
+							*;resolution:=optional
+						</Import-Package>
+						<DynamicImport-Package>*</DynamicImport-Package>
+						<Implementation-Title>${project.name}</Implementation-Title>
+						<Implementation-Version>${project.version}</Implementation-Version>
+					</instructions>
+				</configuration>
+			</plugin>
+```
+
+- cambiar el packaging a bunlde
+
+```xml
+<packaging>bundle</packaging>
+```
+
+_pom.xml_
+
+```xml
+ <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <fuse.version>7.5.0.fuse-750029-redhat-00002</fuse.version>
+    <camel.version>3.9.0</camel.version>
+  </properties>
+
+<dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.jboss.redhat-fuse</groupId>
+        <artifactId>fuse-karaf-bom</artifactId>
+        <version>${fuse.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
+          <groupId>org.apache.camel</groupId>
+          <artifactId>camel-bom</artifactId>
+          <version>${camel.version}</version>
+          <type>pom</type>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+<!--dependency minimal for working -->
+  	<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-simple</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>javax.xml.bind</groupId>
+			<artifactId>jaxb-api</artifactId>
+			<version>2.4.0-b180830.0359</version>
+		</dependency>
+```
 ```xml
 			<plugin>
 				<artifactId>maven-antrun-plugin</artifactId>
@@ -35,65 +114,39 @@ mvn archetype:generate -DarchetypeGroupId=org.apache.camel.archetypes -Darchetyp
 				</executions>
 			</plugin>
 ```
-* eliminar los siguientes plugin
 
-    - camel-bundle-plugin
-    - maven-jar-plugin
 
-* agregar el plugin bundle
-```xml
-			<plugin>
-				<groupId>org.apache.felix</groupId>
-				<artifactId>maven-bundle-plugin</artifactId>
-				<version>3.3.0</version>
-				<extensions>true</extensions>
-				<configuration>
-					<instructions>
-						<Bundle-Name>${project.name}</Bundle-Name>
-						<Bundle-SymbolicName>${project.name}-osgi</Bundle-SymbolicName>
-						<Import-Package>
-							*;resolution:=optional
-						</Import-Package>
-						<DynamicImport-Package>*</DynamicImport-Package>
-						<Implementation-Title>${project.name}</Implementation-Title>
-						<Implementation-Version>${project.version}</Implementation-Version>
-					</instructions>
-				</configuration>
-			</plugin>
-```
-* cambiar el packaging a bunlde
-```xml
-<packaging>bundle</packaging>
-```
 
 ---
-# Building project generic camel standalone 
 
-*build estructura del projecto generico*
+# Building project generic camel standalone
+
+_build estructura del projecto generico_
 
 ![ProjectDir](img/projectDir.png)
 
-*add pom.xml template*
+_add pom.xml template_
 
 [pom.xml](https://gist.github.com/sparsick/aec73d514b1ef248d92d)
 
-*add bom apache camel*
+_add bom apache camel_
 
 [BOM camel](https://camel.apache.org/releases/release-3.9.0/)
 
-*add dependency fuse karaf bom and repository*
+_add dependency fuse karaf bom and repository_
 
-[BOM Fuse karaf](https://access.redhat.com/documentation/en-us/red_hat_fuse/7.5/html-single/getting_started/index#add-red-hat-repositories-to-maven)
+[Repository easyall](https://access.redhat.com/documentation/en-us/red_hat_fuse/7.5/html-single/getting_started/index#add-red-hat-repositories-to-maven)
 
-[Repository easyall](https://access.redhat.com/documentation/en-us/red_hat_fuse/7.5/html-single/migration_guide/index#upgrading-fuse-applications-on-karaf-standalone)
+[Fuse Karaf Bom](https://access.redhat.com/documentation/en-us/red_hat_fuse/7.5/html-single/migration_guide/index#upgrading-fuse-applications-on-karaf-standalone)
 
-*add log4j.properties*
+_add log4j.properties_
 
 [log4j.properties](https://github.com/mondora/sample-project/blob/master/src/main/resources/log4j.properties)
 
 ---
 
-*settings.xml or into pom.xml from <repositories/>* 
+_settings.xml or into pom.xml from <repositories/>_
+
 ```xml
 <?xml version="1.0"?>
 <settings>
@@ -167,54 +220,14 @@ mvn archetype:generate -DarchetypeGroupId=org.apache.camel.archetypes -Darchetyp
 ....
 </settings>
 ```
----
-*pom.xml*
-```xml
- <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <fuse.version>7.5.0.fuse-750029-redhat-00002</fuse.version>
-    <camel.version>3.9.0</camel.version>
-  </properties>
 
-<dependencyManagement>
-    <dependencies>
-      <dependency>
-        <groupId>org.jboss.redhat-fuse</groupId>
-        <artifactId>fuse-karaf-bom</artifactId>
-        <version>${fuse.version}</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
-      <dependency>
-          <groupId>org.apache.camel</groupId>
-          <artifactId>camel-bom</artifactId>
-          <version>${camel.version}</version>
-          <type>pom</type>
-      </dependency>
-    </dependencies>
-  </dependencyManagement>
-
-<!--dependency minimal for working -->
-  	<dependency>
-			<groupId>org.apache.camel</groupId>
-			<artifactId>camel-core</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-simple</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>javax.xml.bind</groupId>
-			<artifactId>jaxb-api</artifactId>
-			<version>2.4.0-b180830.0359</version>
-		</dependency>
-```
 ---
-*log4j.properties*
+
+
+---
+
+_log4j.properties_
+
 ```properties
 log4j.rootLogger=INFO, out
 #log4j.logger.org.apache.camel=INFO
@@ -224,7 +237,9 @@ log4j.appender.out.layout.ConversionPattern=[%30.30t] %-30.30c{1} %-5p %m%n
 ```
 
 ---
-*TestExample.java*
+
+_TestExample.java_
+
 ```java
 public class TestExample {
 
@@ -245,24 +260,25 @@ public class TestExample {
 }
 ```
 
-
-
 ## Documentos Importantes
 
 **Fuse Standalone Getting Started**
+
 - [Installing on Apache Karaf](https://access.redhat.com/documentation/en-us/red_hat_fuse/7.0/html-single/installing_on_apache_karaf/index)
 
 **Fuse Standalone Administration**
+
 - [Deploying into Apache Karaf](https://access.redhat.com/documentation/en-us/red_hat_fuse/7.0/html-single/deploying_into_apache_karaf/index)
 
 **Development**
+
 - [Apache Camel Development Guide](https://access.redhat.com/documentation/en-us/red_hat_fuse/7.0/html-single/apache_camel_development_guide/index)
 
 - [Apache CXF Development Guide](https://access.redhat.com/documentation/en-us/red_hat_fuse/7.0/html-single/apache_cxf_development_guide/index)
 
 **Reference**
-- [Apache Karaf Console Reference](https://access.redhat.com/documentation/en-us/red_hat_fuse/7.0/html-single/apache_karaf_console_reference/index)
 
+- [Apache Karaf Console Reference](https://access.redhat.com/documentation/en-us/red_hat_fuse/7.0/html-single/apache_karaf_console_reference/index)
 
 ## Download Red Hat Fuse 7.0 and Configuration
 
@@ -279,11 +295,14 @@ public class TestExample {
 [Camel in Action,Second Edition](https://www.manning.com/books/camel-in-action-second-edition)
 
 ---
+
 # INSTALACION Y CONFIGURACION DE FUSE 7.0
 
 [Video Instalacion](https://www.youtube.com/watch?v=-2NF7OHPg1I)
 
 [Doc masterspringboot](http://www.masterspringboot.com/various/red-hat-fuse)
+
+[Fuse Download](https://developers.redhat.com/products/fuse/download)
 
 # APACHE KARAF CONSOLE REFERENCE
 

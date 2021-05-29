@@ -4,6 +4,8 @@ Red Hat Certified Specialist in Camel Development Exam
 
 - Doc [Red Hat Fuse 7.0](https://access.redhat.com/documentation/en-us/red_hat_fuse/7.5/)
 
+- Tutorial [JBoss Fuse](https://www.tutorialspoint.com/jboss_fuse/index.htm)
+ 
 # Create and maintain Camel routes
 - Use the Java™ language
 - Use the CamelContext XML
