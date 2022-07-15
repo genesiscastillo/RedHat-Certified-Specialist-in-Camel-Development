@@ -1,5 +1,8 @@
 # Work with databases and the Camel JPA component
 
+[TUTORIAL](http://liquid-reality.de/Karaf-Tutorial/07/)
+
+
 [Objetivo 4](https://www.redhat.com/en/services/training/ex421-red-hat-certified-specialist-in-camel-development-exam?section=Objectives)
 
 
@@ -76,9 +79,9 @@ mvn archetype:generate \
 						<configuration>
 							<tasks>
 								<delete
-									file="j:\devtools\fuse-karaf-7.0.0\deploy\proyecto02-1.0.0.jar" />
+									file="j:\devtools\fuse-karaf-7.0.0.fuse-000191-redhat-1\deploy\proyecto02-1.0.0.jar" />
 								<copy file="./target/proyecto02-1.0.0.jar"
-									tofile="j:\devtools\fuse-karaf-7.0.0\deploy\proyecto02-1.0.0.jar" />
+									tofile="j:\devtools\fuse-karaf-7.0.0.fuse-000191-redhat-1\deploy\proyecto02-1.0.0.jar" />
 							</tasks>
 						</configuration>
 						<goals>

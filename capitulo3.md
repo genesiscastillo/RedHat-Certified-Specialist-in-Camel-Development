@@ -121,11 +121,6 @@ public class ExampleJndi {
 
 ## working with files - part 1
 
-
-
-
-
-
 ```xml
     <route id="loadFile">
     	<from uri="file://data/inbox"/>
